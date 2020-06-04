@@ -1,0 +1,20 @@
+[
+  {
+    "name": "job_1",
+    "data": {
+      "foo": "bar_1"
+    }
+  },
+  {
+    "name": "job_2",
+    "data": {
+      "foo": "bar_2"
+    }
+  },
+  {
+    "name": "job_3",
+    "data": {
+      "foo": "bar_3"
+    }
+  }
+]

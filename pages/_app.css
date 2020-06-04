@@ -1,0 +1,89 @@
+/* Index */
+body {
+  background-color: #e5e5e5;
+}
+
+.home-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.login-header {
+  text-align: center;
+}
+
+.login-sub-header {
+  text-align: center;
+  font-size: 20px;
+}
+
+.login-card {
+  width: 50%;
+}
+
+.login-card__header {
+  text-align: center;
+  font-size: 20px;
+}
+
+/* Dashboard Pages */
+
+.dashboard-layout {
+  min-height: 100vh;
+}
+
+.dashboard-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 32px;
+  margin: 16px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.dashboard-logo__link {
+  color: inherit;
+}
+
+.dashboard-header {
+  background: #fff;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.dashboard-header__space {
+  flex: 1;
+}
+
+.dashboard-content {
+  margin: 0 16px;
+}
+
+.dashboard-content__breadcrumb {
+  margin: 16px 0;
+}
+
+.dashboard-content__tabs > .ant-tabs-bar {
+  margin: 0;
+}
+
+.dashboard-content__background {
+  background: #fff;
+  padding: 24px;
+}
+
+.dashboard-overview-header {
+  display: flex;
+}
+.dashboard-overview-header__title {
+  flex: 1;
+}
+
+.dashboard-footer {
+  text-align: center;
+}

@@ -1,0 +1,19 @@
+version: '3'
+services:
+  app:
+    build: .
+    depends_on:
+      - redis
+      - db
+  redis:
+    image: redis:6.0.1
+    ports:
+      - '6379:6379'
+  db:
+    image: postgres:12
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=zeroqueue_db
