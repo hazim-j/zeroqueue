@@ -54,7 +54,7 @@ docker run --rm -d -e DATABASE_URL -e REDIS_URL -e SESSION_SECRET -p 9376:9376 -
 
 Note that the above command will map port `9376` to the ZeroQueue app. If running locally this will be available on http://localhost:9376.
 
-If you are running the database and redis on localhost too, you will need to make sure the ZeroQueue container has access to the host network. On mac this can be achieved by replacing `localhost` or `127.0.0.1` with `docker.for.mac.localhost`.
+If you are running the database and redis on localhost too, you will need to make sure the ZeroQueue container has access to the host network. On mac and windows this can be achieved by replacing `localhost` or `127.0.0.1` with `host.docker.internal`.
 
 ### Environment specific examples
 
