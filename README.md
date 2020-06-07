@@ -24,7 +24,7 @@ A containerised version of ZeroQueue can be easily setup using docker with the f
 | REDIS_URL      | Connection string for a Redis database.                     |
 | SESSION_SECRET | A string of atleast 32 characters to encrypt user sessions. |
 
-A built image of ZeroQueue is currently hosted on [Docker Hub](https://hub.docker.com/repository/docker/zeroqueue/zeroqueue). This will allow you to run the app in most environments and platforms such as docker-compose, Heroku, or Kubernetes.
+A built image of ZeroQueue is currently hosted on [Docker Hub](https://hub.docker.com/r/zeroqueue/zeroqueue). This will allow you to run the app in most environments and platforms such as docker-compose, Heroku, or Kubernetes.
 
 ### Running using the Docker CLI
 
