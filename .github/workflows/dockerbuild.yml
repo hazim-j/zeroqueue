@@ -21,4 +21,6 @@ jobs:
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-
+    - name: docker build
+      run: |
+        docker build -t 
