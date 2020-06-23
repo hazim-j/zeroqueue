@@ -23,4 +23,4 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: docker build
       run: |
-        docker build -t zeroqueue:tag
+        docker build -t testnode --target=base
