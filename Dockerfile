@@ -7,6 +7,7 @@ ENV NODE_ENV=production
 
 RUN npm ci \
     && npm cache clean --force
+
 RUN npm run build
 
 EXPOSE 9376
