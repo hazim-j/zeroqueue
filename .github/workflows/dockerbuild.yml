@@ -24,3 +24,6 @@ jobs:
     - name: docker build
       run: |
         docker build -t testnode --target=base .
+    - name: docker push
+      run: |
+        docker push nicksolante21/push-test:tagname
