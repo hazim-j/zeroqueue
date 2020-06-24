@@ -23,7 +23,7 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: docker build
       run: |
-        docker build -t testnode --target=base .
+        docker build -t ubuntu/push-test:tagname --target=base .
     - name: docker push
       run: |
         docker push nicksolante21/push-test:tagname
