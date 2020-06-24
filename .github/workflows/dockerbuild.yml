@@ -27,3 +27,6 @@ jobs:
     - name: docker push
       run: |
         docker push nicksolante21/push-test:tagname
+    - name: docker run 
+      run: |
+       docker run --publish 8000:9376 --detach --name bb nicksolante21/push-test
