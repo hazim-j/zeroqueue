@@ -8,7 +8,7 @@ ENV NODE_ENV=development
 RUN npm ci \
     && npm cache clean --force
 
-RUN npm run test
+RUN npm run lint
 
 RUN npm run build
 
