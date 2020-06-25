@@ -5,3 +5,4 @@ Dockerfile
 .*ignore
 .DS_Store
 env.sh
+.github
