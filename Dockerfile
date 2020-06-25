@@ -3,7 +3,7 @@ FROM node:12.14 as base
 WORKDIR /app
 COPY . /app
 
-RUN npm run test
+RUN npm run lint
 
 ENV NODE_ENV=production
 
