@@ -3,7 +3,7 @@ FROM node:12.14 as base
 WORKDIR /app
 COPY . .
 
-ENV NODE_ENV=development
+ENV NODE_ENV=production
 
 RUN npm ci \
     && npm cache clean --force
