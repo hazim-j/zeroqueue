@@ -23,6 +23,7 @@ ENV PATH=/opt/node_modules/.bin:$PATH
 WORKDIR /opt
 
 RUN npm install --only=development
+RUN npm run  build
 
 WORKDIR /opt/app
 
