@@ -1,11 +1,9 @@
 FROM node:12.14 as base
 
 WORKDIR /app
-COPY . /app
+COPY . .
 
-RUN npm run lint
-
-ENV NODE_ENV=production
+ENV NODE_ENV=development
 
 RUN npm ci \
     && npm cache clean --force
