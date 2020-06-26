@@ -14,6 +14,7 @@ jobs:
   CI:
     runs-on: ubuntu-latest
     steps:
+    - uses: nelonoel/branch-name@v1
     - uses: actions/checkout@v2
     - name: docker login
       env:
