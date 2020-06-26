@@ -26,10 +26,10 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: docker build
       run: |
-        docker build -t nicksolante21/new-repo:${BRANCH_NAME}-${{ env.GITHUB_RUN_ID }} --target=base .
+        docker build -t nicksolante21/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }} --target=base .
     - name: docker push
       run: |
-        docker push nicksolante21/new-repo:${BRANCH_NAME}-${{ env.GITHUB_RUN_ID }}
+        docker push nicksolante21/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
     - name: docker run 
       run: |
-       docker run --publish 8000:9376 --detach --name bb nicksolante21/new-repo
+       docker run --publish 8000:9376 --detach --name bb nicksolante21/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
