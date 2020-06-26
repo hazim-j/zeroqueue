@@ -19,11 +19,13 @@ jobs:
       env:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        GITHUB_RUN_ID: ${{ github.run_id }} 
+
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: docker build
       run: |
-        docker build -t nicksolante21/push-test:tagname --target=test .
+        docker build -t nicksolante21/push-test:${BRANCH_NAME}-${{ env.GITHUB_RUN_ID }} --target=base .
     - name: docker push
       run: |
         docker push nicksolante21/push-test:tagname
