@@ -27,12 +27,12 @@ jobs:
     - name: docker build
       run: |
         GITHUB_REPOSITORY_LC=$(echo "${GITHUB_REPOSITORY}" | tr [A-Z] [a-z])
-        docker build -t ${GITHUB_REPOSITORY}:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }} --target=base .
+        docker build -t ${GITHUB_REPOSITORY_LC}:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }} --target=base .
     - name: docker push
       run: |
         GITHUB_REPOSITORY_LC=$(echo "${GITHUB_REPOSITORY}" | tr [A-Z] [a-z])
-        docker push ${GITHUB_REPOSITORY}:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
+        docker push ${GITHUB_REPOSITORY_LC}:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
     - name: docker run 
       run: |
        GITHUB_REPOSITORY_LC=$(echo "${GITHUB_REPOSITORY}" | tr [A-Z] [a-z])
-       docker run --publish 8000:9376 --detach --name bb ${GITHUB_REPOSITORY}:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }} 'npm install --dev && npm run lint'
+       docker run --publish 8000:9376 --detach --name bb ${GITHUB_REPOSITORY_LC}:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }} 'npm install --dev && npm run lint'
