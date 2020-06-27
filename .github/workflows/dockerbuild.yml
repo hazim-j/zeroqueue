@@ -21,18 +21,16 @@ jobs:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
         GITHUB_RUN_ID: ${{ github.run_id }} 
-        
+
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: docker build
       run: |
-        GITHUB_REPOSITORY_LC=$(echo "${GITHUB_REPOSITORY}" | tr [A-Z] [a-z])
-        docker build -t ${GITHUB_REPOSITORY_LC}:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }} --target=base .
+        docker build -t nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }} --target=base .
     - name: docker push
       run: |
-        GITHUB_REPOSITORY_LC=$(echo "${GITHUB_REPOSITORY}" | tr [A-Z] [a-z])
-        docker push ${GITHUB_REPOSITORY_LC}:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
-    - name: docker run 
+        docker push nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
+    - name: docker pull 
       run: |
-       GITHUB_REPOSITORY_LC=$(echo "${GITHUB_REPOSITORY}" | tr [A-Z] [a-z])
-       docker run --publish 8000:9376 --detach --name bb ${GITHUB_REPOSITORY_LC}:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }} 'npm install --dev && npm run lint'
+       docker pull nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
+       docker run --publish 8000:9376 --detach --name bb nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }} 'npm install --dev && npm run lint'
