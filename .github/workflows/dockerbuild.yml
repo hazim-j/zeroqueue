@@ -4,7 +4,9 @@ name: Docker Build
 
 on:
   push:
-    branches: [ master ]
+    branches: 
+     - '*'
+     - '!master'
   pull_request:
     branches: [ master ]
 
@@ -30,7 +32,7 @@ jobs:
     - name: docker push
       run: |
         docker push nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
-    - name: docker pull 
+    - name: docker pull and run
       run: |
        docker pull nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
        docker run --publish 8000:9376 --detach --name bb nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }} 'npm install --dev && npm run lint'
