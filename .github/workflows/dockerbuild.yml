@@ -26,16 +26,15 @@ jobs:
     - name: docker build
       run: |
         docker build -t nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }} .
+    - name: docker push
+      run: |
+        docker push nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
 
   push-image:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: nelonoel/branch-name@v1
-    - name: docker push
-
-      run: |
-        docker push nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
     - name: docker pull
       run: |
        docker pull nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
