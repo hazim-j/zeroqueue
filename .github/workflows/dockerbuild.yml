@@ -30,8 +30,9 @@ jobs:
       run: |
         docker push nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
 
-  push-image:
+  pull-image:
     runs-on: ubuntu-latest
+    needs: build-image
     steps:
     - uses: actions/checkout@v2
     - uses: nelonoel/branch-name@v1
