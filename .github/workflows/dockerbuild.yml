@@ -24,19 +24,11 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
         docker build -t nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }} .
-
-  push-image:
-    runs-on: ubuntu-latest
-    needs: build-image
-    steps:
-    - uses: nelonoel/branch-name@v1
-    - name: docker push
-      run: |
         docker push nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
 
   pull-image:
     runs-on: ubuntu-latest
-    needs: push-image
+    needs: build-image
     steps:
     - uses: nelonoel/branch-name@v1
     - name: docker pull
