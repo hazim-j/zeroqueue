@@ -34,12 +34,4 @@ jobs:
     - name: docker pull
       run: |
        docker pull nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
-
-  lint:
-    runs-on: ubuntu-latest
-    needs: pull-image
-    steps:
-    - uses: nelonoel/branch-name@v1
-    - name: docker run
-      run: |
        docker run --publish 8000:9376 --detach --name bb nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }} 'npm install --dev && npm run lint'
