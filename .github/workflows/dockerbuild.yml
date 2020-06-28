@@ -34,4 +34,5 @@ jobs:
     - name: docker pull
       run: |
        docker pull nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
-       docker run --publish 8000:9376 --detach --name bb nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }} 'npm install --dev && npm run lint'
+    - name : docker lint
+      run: docker run --publish 8000:9376 --detach --name bb nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }} 'npm install --dev && npm run lint'
