@@ -1,4 +1,4 @@
-FROM node:12.14 as base
+FROM node:12.14
 
 WORKDIR /app
 COPY . .
