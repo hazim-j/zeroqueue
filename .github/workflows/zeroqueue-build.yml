@@ -33,7 +33,7 @@ jobs:
         run: |
           docker pull nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
       - name: docker execute shell
-        run: docker run --name test nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
+        run: docker run nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }} npm install --dev
       - name: install node packages
         run: docker exec -it test /bin/bash
       - name: install node packages
