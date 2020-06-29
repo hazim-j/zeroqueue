@@ -11,5 +11,9 @@
       "files": ".eslintrc",
       "options": { "parser": "json" }
     }
+    {
+      "files": "zeroqueue-build.yml",
+      "options": { "parser": "yaml" }
+    }
   ]
 }
