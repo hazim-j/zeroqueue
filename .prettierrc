@@ -12,7 +12,7 @@
       "options": { "parser": "json" }
     },
     {
-      "files": "zeroqueue-build.yml",
+      "files": "zeroqueueBuild.yml",
       "options": { "parser": "yaml" }
     }
   ]
