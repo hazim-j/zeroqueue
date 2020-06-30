@@ -30,10 +30,10 @@ jobs:
     steps:
       - uses: nelonoel/branch-name@v1
         env:
-          GITHUB_RUN_ID: ${{ github.run_id }}
+          GITHUB_RUN_ID: ${BRANCH_NAME}${{ github.run_id }}
       - name: docker pull
-
         run: |
+          echo ${{env.GITHUB_RUN_ID}}
           docker pull nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
       - name: docker execute shell
         run: docker run nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }} /bin/bash -c "npm i --only=dev && npm run lint"
