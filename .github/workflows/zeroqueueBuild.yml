@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-image
     steps:
-      - uses: nelonoel/bch-name@v1ran
+      - uses: nelonoel/branch-name@v1
       - name: docker pull and lint
         env:
           GITHUB_RUN_ID: ${BRANCH_NAME}${{ github.run_id }}
