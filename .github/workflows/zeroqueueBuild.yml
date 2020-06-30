@@ -36,4 +36,6 @@ jobs:
           echo ${{ env.GITHUB_RUN_ID }}
           docker pull nicksolante1/new-repo:${{ env.GITHUB_RUN_ID }}
       - name: docker execute shell
+        env:
+          GITHUB_RUN_ID: ${BRANCH_NAME}${{ github.run_id }}
         run: docker run nicksolante1/new-repo:${{ env.GITHUB_RUN_ID }} /bin/bash -c "npm i --only=dev && npm run lint"
