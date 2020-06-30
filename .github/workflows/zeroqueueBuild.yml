@@ -21,8 +21,8 @@ jobs:
           GITHUB_RUN_ID: ${{ github.run_id }}
         run: |
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-          docker build -t nicksolante1/new-repo:${{ env.GITHUB_RUN_ID }} .
-          docker push nicksolante1/new-repo:${{ env.GITHUB_RUN_ID }}
+          docker build -t nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }} .
+          docker push nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
 
   pull-image:
     runs-on: ubuntu-latest
@@ -31,6 +31,6 @@ jobs:
       - uses: nelonoel/branch-name@v1
       - name: docker pull
         run: |
-          docker pull nicksolante1/new-repo:${{ env.GITHUB_RUN_ID }}
+          docker pull nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
       - name: docker execute shell
-        run: docker run nicksolante1/new-repo:${{ env.GITHUB_RUN_ID }} /bin/bash -c "npm i --only=dev && npm run lint"
+        run: docker run nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }} /bin/bash -c "npm i --only=dev && npm run lint"
