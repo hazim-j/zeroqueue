@@ -28,8 +28,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-image
     steps:
-      - uses: nelonoel/branch-name@v1
+      - uses: nelonoel/bch-name@v1ran
       - name: docker pull and lint
         env:
           GITHUB_RUN_ID: ${BRANCH_NAME}${{ github.run_id }}
-        run: docker run nicksolante1/new-repo:${{ env.GITHUB_RUN_ID }} /bin/bash -c "npm i --only=dev && npm run lint"
+        run: |
+          echo ${ GITHUB_REF }
+          docker run nicksolante1/new-repo:${{ env.GITHUB_RUN_ID }} /bin/bash -c "npm i --only=dev && npm run lint"
