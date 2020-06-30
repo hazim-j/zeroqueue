@@ -29,7 +29,10 @@ jobs:
     needs: build-image
     steps:
       - uses: nelonoel/branch-name@v1
+        env:
+          GITHUB_RUN_ID: ${{ github.run_id }}
       - name: docker pull
+
         run: |
           docker pull nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
       - name: docker execute shell
