@@ -29,13 +29,7 @@ jobs:
     needs: build-image
     steps:
       - uses: nelonoel/branch-name@v1
-      - name: docker pull
-        env:
-          GITHUB_RUN_ID: ${BRANCH_NAME}${{ github.run_id }}
-        run: |
-          echo ${{ env.GITHUB_RUN_ID }}
-          docker pull nicksolante1/new-repo:${{ env.GITHUB_RUN_ID }}
-      - name: docker execute shell
+      - name: docker pull and lint
         env:
           GITHUB_RUN_ID: ${BRANCH_NAME}${{ github.run_id }}
         run: docker run nicksolante1/new-repo:${{ env.GITHUB_RUN_ID }} /bin/bash -c "npm i --only=dev && npm run lint"
