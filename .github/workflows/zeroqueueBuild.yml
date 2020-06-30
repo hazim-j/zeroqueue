@@ -33,5 +33,5 @@ jobs:
         env:
           GITHUB_RUN_ID: ${BRANCH_NAME}${{ github.run_id }}
         run: |
-          echo ${GITHUB_REF}
+          echo "GITHUB_REF = ${GITHUB_REF}"
           docker run nicksolante1/new-repo:${{ env.GITHUB_RUN_ID }} /bin/bash -c "npm i --only=dev && npm run lint"
