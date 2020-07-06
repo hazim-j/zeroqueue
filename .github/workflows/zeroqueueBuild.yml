@@ -4,12 +4,15 @@ name: zeroqueue-build
 
 on:
   push:
-    branches: [master]
+    branches:
+     - '*'
+     - '!master'
   pull_request:
     branches: [master]
 
 jobs:
   build-image:
+    name: Docker processes
     runs-on: ubuntu-latest
     steps:
       - uses: nelonoel/branch-name@v1
@@ -25,6 +28,7 @@ jobs:
           docker push nicksolante1/new-repo:${BRANCH_NAME}${{ env.GITHUB_RUN_ID }}
 
   pull-image:
+    name: Pull and lint image for code quality
     runs-on: ubuntu-latest
     needs: build-image
     steps:
@@ -36,3 +40,20 @@ jobs:
         run: |
           echo ${{ env.GITHUB_REF }}
           docker run nicksolante1/new-repo:${{ env.GITHUB_RUN_ID }} /bin/bash -c "npm i --only=dev && npm run lint"
+
+  publish-image:
+    name: Publish image if success on other jobs and if pulled to master
+    runs-on: ubuntu-latest
+    needs: pull-image
+    if: github.event_name == 'pull_request' && github.ref == 'refs/heads/master' && success()
+    steps:
+      - uses: nelonoel/branch-name@v1
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+        env:
+          GITHUB_REF: ${{ github.ref }}
+      - name: rename image to latest
+        run: |
+          docker build -t nicksolante1/new-repo:latest .
+          docker push nicksolante1/new-repo:latest
