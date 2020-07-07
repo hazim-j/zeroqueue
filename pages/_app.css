@@ -92,7 +92,7 @@ body {
   text-align: center;
 }
 
-.modal-switch-container {
+.modal-inline-text {
   display: flex;
   justify-content: space-between;
 }

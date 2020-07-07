@@ -301,7 +301,7 @@ export default function Queue() {
           >
             <p>Install dependencies:</p>
             <InstallDependencies />
-            <div className="modal-switch-container">
+            <div className="modal-inline-text">
               <p>Use the following template:</p>
               <p>
                 <Switch
