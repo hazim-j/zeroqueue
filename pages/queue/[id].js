@@ -2,10 +2,31 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
-import { Layout, Breadcrumb, Button, Typography, Table, message, Tag, Upload, Modal } from 'antd';
-import { PlusOutlined, GithubFilled, InboxOutlined } from '@ant-design/icons';
+import {
+  Layout,
+  Breadcrumb,
+  Button,
+  Typography,
+  Table,
+  message,
+  Tag,
+  Upload,
+  Modal,
+  Dropdown,
+  Menu,
+  Switch,
+} from 'antd';
+import {
+  PlusOutlined,
+  GithubFilled,
+  InboxOutlined,
+  DownOutlined,
+  ApiOutlined,
+  EyeInvisibleOutlined,
+} from '@ant-design/icons';
 import { useUser } from '../../lib/auth/hooks';
 import Sidebar from '../../components/sidebar';
+import { InstallDependencies, Worker } from '../../components/codesnippets';
 
 const { Title } = Typography;
 const { Header, Content, Footer } = Layout;
@@ -18,6 +39,10 @@ const STATUS_COL_MAP = {
   failed: 'red',
   delayed: 'orange',
   paused: 'orange',
+};
+
+const DROPDOWN_KEYS = {
+  CODE_SAMPLE: 'CODE_SAMPLE',
 };
 
 const columns = (id) => [
@@ -133,6 +158,44 @@ export default function Queue() {
     }
   };
 
+  const [showWorkerCodeSample, setShowWorkerCodeSample] = useState(false);
+  const onDropdownClick = ({ key }) => {
+    switch (key) {
+      case DROPDOWN_KEYS.CODE_SAMPLE:
+        return setShowWorkerCodeSample(true);
+      default:
+        break;
+    }
+  };
+
+  const queueName = () => (queue && queue.name) || '...';
+
+  const [redis, setRedis] = useState(null);
+  const [loadingSecret, setLoadingSecret] = useState(null);
+  const onShowSecret = async (checked) => {
+    if (!checked) return setRedis(null);
+
+    try {
+      if (!user) return;
+
+      setLoadingSecret(true);
+      const res = await fetch(`/api/config`);
+      const { data, error } = await res.json();
+
+      switch (res.status) {
+        case 200:
+          setRedis(data.REDIS_URL);
+          break;
+        default:
+          throw new Error(error);
+      }
+    } catch (error) {
+      message.error(error.message);
+    } finally {
+      setLoadingSecret(false);
+    }
+  };
+
   return (
     <div>
       <Head>
@@ -162,7 +225,7 @@ export default function Queue() {
               <div className="dashboard-content__background">
                 <div className="dashboard-overview-header">
                   <Title className="dashboard-overview-header__title" level={3}>
-                    {(queue && queue.name) || '...'}
+                    {queueName()}
                   </Title>
                   <Button
                     type="primary"
@@ -171,6 +234,19 @@ export default function Queue() {
                   >
                     New Jobs
                   </Button>
+                  <Dropdown
+                    overlay={
+                      <Menu onClick={onDropdownClick}>
+                        <Menu.Item key={DROPDOWN_KEYS.CODE_SAMPLE}>
+                          <ApiOutlined /> Code sample
+                        </Menu.Item>
+                      </Menu>
+                    }
+                  >
+                    <Button className="dashboard-overview-header__last-button">
+                      More <DownOutlined />
+                    </Button>
+                  </Dropdown>
                 </div>
                 <Table
                   rowKey="name"
@@ -215,6 +291,27 @@ export default function Queue() {
             >
               Add Jobs
             </Button>
+          </Modal>
+          <Modal
+            title="Worker code sample"
+            width="45%"
+            visible={showWorkerCodeSample}
+            onCancel={() => setShowWorkerCodeSample(false)}
+            footer={null}
+          >
+            <p>Install dependencies:</p>
+            <InstallDependencies />
+            <div className="modal-inline-text">
+              <p>Use the following template:</p>
+              <p>
+                <Switch
+                  unCheckedChildren={<EyeInvisibleOutlined />}
+                  loading={loadingSecret}
+                  onChange={onShowSecret}
+                />
+              </p>
+            </div>
+            <Worker queue={queueName()} redis={redis} />
           </Modal>
         </Layout>
       )}

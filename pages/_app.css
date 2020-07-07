@@ -84,6 +84,15 @@ body {
   flex: 1;
 }
 
+.dashboard-overview-header__last-button {
+  margin-left: 10px;
+}
+
 .dashboard-footer {
   text-align: center;
+}
+
+.modal-inline-text {
+  display: flex;
+  justify-content: space-between;
 }
