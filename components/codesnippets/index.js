@@ -1,19 +1,11 @@
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { github } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 
-const generateWorkerCode = (queue, redis) => `const Queue = require('bull');
+const generateWorkerCode = (queue, redis) => {
+  const workerCode = process.env.WORKER_TEMPLATE.replace('YOUR QUEUE NAME', queue);
 
-const queue = new Queue('${queue}', ${(redis && `'${redis}'`) || 'process.env.REDIS_URL'});
-
-queue.process('*', async (job) => {
-  const { data } = job;
-
-  // worker code here...
-  console.log(data);
-
-  // returns a promise...
-  return data;
-});`;
+  return (redis && workerCode.replace('process.env.REDIS_URL', `'${redis}'`)) || workerCode;
+};
 
 export const InstallDependencies = () => (
   <SyntaxHighlighter language="bash" style={github}>
