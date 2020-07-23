@@ -92,6 +92,12 @@ body {
   text-align: center;
 }
 
+.dashboard-logs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .modal-inline-text {
   display: flex;
   justify-content: space-between;
