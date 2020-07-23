@@ -5,7 +5,17 @@ import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import moment from 'moment';
 import { useUser } from '../../../lib/auth/hooks';
-import { Layout, Breadcrumb, Button, Typography, Table, Progress, message } from 'antd';
+import {
+  Layout,
+  Breadcrumb,
+  Button,
+  Typography,
+  Table,
+  Progress,
+  message,
+  Spin,
+  Modal,
+} from 'antd';
 import { GithubFilled } from '@ant-design/icons';
 import Sidebar from '../../../components/sidebar';
 
@@ -38,6 +48,63 @@ const columns = [
     key: 'progress',
     render: function ProgressCol(progress) {
       return <Progress percent={progress} />;
+    },
+  },
+  {
+    title: 'Action',
+    key: 'action',
+    render: function ActionCol(_, record) {
+      const ActionColWrapper = () => {
+        const [showLogs, setShowLogs] = useState(false);
+        const [jobLogs, setJobLogs] = useState(null);
+
+        const loadLogs = async () => {
+          try {
+            const res = await fetch(`/api/queue/${record.queueId}/logs/${record.id}`);
+            const { data, error } = await res.json();
+
+            switch (res.status) {
+              case 200:
+                setJobLogs(data.logs);
+                break;
+              default:
+                throw new Error(error);
+            }
+          } catch (error) {
+            message.error(error.message);
+            setJobLogs(null);
+          }
+        };
+
+        return (
+          <div>
+            <Button
+              type="link"
+              onClick={() => {
+                setShowLogs(true);
+                loadLogs();
+              }}
+            >
+              Logs
+            </Button>
+            <Modal
+              title={`Job logs for id: ${record.id}`}
+              visible={showLogs}
+              onCancel={() => setShowLogs(false)}
+              footer={null}
+              width="80%"
+            >
+              <div className="dashboard-logs">
+                {(Array.isArray(jobLogs) && (
+                  <ReactJson style={{ width: '100%' }} src={jobLogs} />
+                )) || <Spin />}
+              </div>
+            </Modal>
+          </div>
+        );
+      };
+
+      return <ActionColWrapper />;
     },
   },
 ];
@@ -124,13 +191,13 @@ export default function JobStatus() {
                   </Title>
                 </div>
                 <Table
-                  rowKey="name"
+                  rowKey="id"
                   loading={jobStatusLoading}
                   columns={columns}
                   expandable={{
                     expandedRowRender,
                   }}
-                  dataSource={jobStatus.jobs}
+                  dataSource={jobStatus.jobs.map((job) => ({ queueId: id, ...job }))}
                   pagination={{
                     total: jobStatus.count,
                     onChange: onPageChange,
