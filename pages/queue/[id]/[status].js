@@ -60,6 +60,7 @@ const columns = [
 
         const loadLogs = async () => {
           try {
+            setJobLogs(null);
             const res = await fetch(`/api/queue/${record.queueId}/logs/${record.id}`);
             const { data, error } = await res.json();
 
