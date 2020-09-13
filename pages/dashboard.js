@@ -328,9 +328,6 @@ export default function Dashboard() {
               </Tabs>
             </Content>
             <Footer className="dashboard-footer">
-              <Button type="link" href="https://zeroqueue.dev" target="blank">
-                ZeroQueue
-              </Button>
               <Button
                 type="link"
                 href="https://github.com/thezeroqueue/zeroqueue"

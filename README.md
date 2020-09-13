@@ -7,7 +7,6 @@ Powered by [BullMQ](https://github.com/optimalbits/bull) - _the fastest, most re
 ![](https://i.imgur.com/Lva6crv.png)
 
 <p align="center">
-  <a href="https://zeroqueue.dev">Website</a> •
   <a href="#installation">Installation</a> •
   <a href="#usage">Usage</a> •
   <a href="#contribute">Contribute</a> •
