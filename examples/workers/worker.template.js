@@ -6,7 +6,10 @@ queue.process('*', async (job) => {
   const { data } = job;
 
   // worker code here...
-  console.log(data);
+  job.log(JSON.stringify(data));
+
+  // capture job progress...
+  job.progress(100);
 
   // returns a promise...
   return data;
