@@ -28,7 +28,7 @@
     "moment": "2.26.0",
     "mysql2": "2.1.0",
     "nanoid": "3.1.9",
-    "next": "9.3.5",
+    "next": "11.1.0",
     "next-connect": "0.6.3",
     "parse-database-url": "0.3.0",
     "passport": "0.4.1",
